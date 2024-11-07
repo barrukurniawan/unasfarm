@@ -1,0 +1,135 @@
+.border-online {
+  border-color: #0fd9b7;
+  box-shadow: 0 0 12px 0 rgba(15, 217, 183, 1);
+}
+.border-super-online {
+  border-color: #0fd9b7;
+  box-shadow: 0 0 22px 0 rgba(15, 217, 183, 1);
+}
+.border-offline{
+  border-color: #dc3545;
+  box-shadow: 0 0 12px 0 rgba(220, 53, 69, 1); 
+}
+.border-super-offline{
+  border-color: #dc3545;
+  box-shadow: 0 0 22px 0 rgba(220, 53, 69, 1); 
+}
+.border-total{
+  border-color: #ffc107;
+  box-shadow: 0 0 12px 0 rgba(255, 193, 7, 1);
+}
+.border-freezer{
+  border-color: #15F4EE;
+  box-shadow: 0 0 12px 0 #15F4EE;
+}
+.border-select{
+  border: none;
+  box-shadow: 0 0 18px 0 gray; 
+}
+.no-border{
+	border: none;
+	box-shadow: 0 0px 8px 2px rgba(0,0,0,0.2);
+}
+svg {
+  fill: none;
+  stroke: #7DD740;
+  stroke-width: 10;
+  stroke-linecap: round;
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.3));
+}
+.border-point{
+	border:none;
+	box-shadow: 0px 0px 15px 2px #1e264d;
+}
+.pointheader {
+  letter-spacing: 2px;
+  text-align: right;
+}
+rect.frame {
+	stroke-width:0;
+}
+path.solid {
+	stroke-width:0;
+	-webkit-filter: drop-shadow( 0px 0px 35px gray );
+	
+}
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 0px 8px 9px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+ box-shadow: 0 0px 8px 2px gray;
+}
+.ldBar-label {
+	color: rgba(0, 0, 0, 0);
+}
+table, td, tr, th {
+  border-bottom: 1px solid #555670;
+  border-top: 0;
+  border-left: 1px solid #555670;
+  border-right: 1px solid #555670;
+}
+tbody {
+   line-height: 40px;
+   min-height: 40px;
+   height: 40px;
+   font-weight: bold;
+   font-size: 15px;
+   color: white;
+}
+.btn-secondary {
+    background-color: transparent !Important;
+    font-size: 14px;
+    text-align: left !Important;
+}
+.pagination > li > a
+{
+    background-color: transparent;
+    color: white;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: white;
+	background-color: rgba(255, 255, 255, 0.3);
+    border: solid 1px white;
+}
+
+.pagination > .active > a
+{
+    color: #5A4181 !Important;
+    background-color: white !Important;
+    border: solid 1px white !Important;
+}
+
+.pagination > .active > a:hover
+{
+    color: white !Important;
+	background-color: rgba(255, 255, 255, 0.3) !Important;
+    border: solid 1px white !Important;
+}
+.fill { 
+    min-height: 100%;
+    height: 100%;
+}
+.search-input
+{
+	background-color: transparent;
+	font-size: 14px;
+}
+.pagination-detail
+{
+	display: none;
+}
+.pagination 
+{
+	font-size: 14px;
+}
+html, body { height: 100%; }
+#page { min-height: 100% }

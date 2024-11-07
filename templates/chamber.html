@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>I4Inari</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alata&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Andika+New+Basic&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Atkinson+Hyperlegible&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-table.css">
+	<link rel="stylesheet" href="assets/css/untitled.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/lib/form-wizard/jquery.steps.css">
+	<link href="css/plugins/c3/c3.min.css" rel="stylesheet">
+	<script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="assets/css/loading-bar.css"/>
+	<script type="text/javascript" src="assets/js/loading-bar.js"></script>
+	<script type="text/javascript" src="assets/js/bootstrap-table.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.counter-count-sensor').each(function () {
+				$(this).prop('Counter',0).animate({
+					Counter: $(this).text()
+				}, {
+					duration: 750,
+					easing: 'swing',
+					step: function (now) {
+						$(this).text(now.toFixed(1));
+					}
+				});
+			});
+			$('.counter-count').each(function () {
+				$(this).prop('Counter',0).animate({
+					Counter: $(this).text()
+				}, {
+					duration: 650,
+					easing: 'swing',
+					step: function (now) {
+						$(this).text(Math.ceil(now));
+					}
+				});
+			});
+			
+			// Connected animation
+			setInterval(function() {
+				var th = $('.dots');
+				if(th.text().length < 3){
+					th.text(th.text()+"╹");
+				}else{
+					th.text("");
+				}
+			}, 700);
+			
+			
+			//Temperature Points
+			Chart.Legend.prototype.afterFit = function() {
+				this.height = this.height + 20;
+			};
+	
+			new Chart(document.getElementById("pie-chart"), {
+				type: 'pie',
+				data: {
+				  labels: ["RUN", "IDLE"],
+				  datasets: [{
+					label: "Machine State",
+					backgroundColor: ["#16a085", "#e67e22"],
+					data: [68.5,31.5],
+					borderWidth: 0
+				  }]
+				},
+				options: {
+					interaction: {
+					  hoverOffset: 60
+					},
+					legend: {
+						labels: {
+							fontColor: "rgba(255,255,255,0.8)",
+							usePointStyle: true,
+							fontSize: 14,
+							boxWidth: 8,
+							padding: 30
+						}
+					},
+					tooltips: {
+						enabled: true,
+						mode: 'single',
+						fontSize: 14,
+						callbacks: {
+							label: function(tooltipItems, data) { 
+								var i = tooltipItems.index;
+								return data.labels[i] + ": " + data.datasets[0].data[i] +'%';
+							}
+						}
+					}
+				}
+			});
+			
+			$('#ovennum').hover(function(){
+				$(this).removeClass("border-online").addClass("border-super-online");
+			  
+			  }, function(){
+				$(this).removeClass("border-super-online").addClass("border-online");
+			});
+			
+			
+			$('#ovennum').click(function() {
+			   $('#oven_list').addClass("show");
+			   myLineChart.data.datasets[0].data = [10, 100, 10, 100, 10, 100, 10];
+			   myLineChart.update();
+			});
+			
+			$(document).on('click', function(event) {
+				if (!$(event.target).closest('#ovennum').length) {
+					$('#oven_list').removeClass("show");
+				 }
+			});
+			
+			$('#gohome').click(function(){
+			   window.location.href='index.html';
+			});
+			
+		});
+		
+	</script>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper" style="background-image: url('wallpaper.png'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
+            <div id="content">
+                
+                <div class="container-fluid">
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4 mt-4">
+                        <h1 style="color: rgb(255,255,255);font-size: 15px;font-family: Alata, sans-serif;font-weight: bold;"><span style="cursor: pointer;" id="gohome"><i class="fas fa-home" style="color:rgba(255,255,255,1); font-size: 15px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;Dashboard&nbsp;&nbsp;</span>/&nbsp;&nbsp;PCT#03</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3 mb-2">
+                            <div class="card py-2 border-online mb-4" id="ovennum" style="cursor: pointer;">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col me-1" style="margin-left: 13px;">
+                                            <div class="text-primary fw-bold text-xs mb-1"><span style="color: rgb(28,200,138);font-size: 15px;">Currently displaying</span></div>
+                                            <div class="text-dark fw-bold h4 mb-0"><span style="color: rgb(255,255,255);">PCT#03</span></div>
+                                        </div>
+                                        <div class="col-auto" style="margin-right: 6px;">
+											<span class="fa-stack fa-2x">
+											  <i class="fas fa-square fa-stack-1x" style="color:rgba(28,200,138,0.2); font-size: 55px;"></i>
+											  <span class="dots" style="color: rgba(28,200,138,1); font-size: 17px;font-weight: bold; padding-left: 27px;"></span>
+											</span>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="dropdown-menu animated--grow-in" id="oven_list" style="overflow: auto;max-height: 210px;">
+								<a class="dropdown-item disabled">Please select one ...</a>
+								<a class="dropdown-item" href="ove_06.html">OVE 06</a>
+								<a class="dropdown-item" href="ove_11.html">OVE 11</a>
+								<a class="dropdown-item" href="#">OVE 08</a>
+								<a class="dropdown-item" href="#">OVE 09</a>
+								<a class="dropdown-item" href="#">OVE 12</a>
+								<a class="dropdown-item" href="#">OVE 13</a>
+								<a class="dropdown-item" href="#">OVE 14</a>
+								<a class="dropdown-item" href="#">OVE 69</a>
+							</div>
+                        </div>
+						<div class="col-md-6 col-xl-3 mb-2">
+                            <div class="card py-2 no-border mb-4">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col me-1" style="margin-left: 13px;">
+                                            <div class="text-primary fw-bold text-xs mb-1"><span style="color: rgb(248,3,137);font-size: 15px;">Location</span></div>
+                                            <div class="text-dark fw-bold h4 mb-0"><span style="color: rgb(255,255,255);">P3L2</span></div>
+                                        </div>
+                                        <div class="col-auto" style="margin-right: 6px;">
+											<span class="fa-stack fa-2x">
+											  <i class="fas fa-square fa-stack-1x" style="color:rgba(248,3,137,0.2); font-size: 55px;"></i>
+											  <i class="fas fa-map-marker-alt fa-stack-1x" style="color:rgba(248,3,137,1); font-size: 21px;"></i>
+											</span>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-md-6 col-xl-3 mb-2">
+                            <div class="card py-2 no-border mb-4">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col me-1" style="margin-left: 13px;">
+                                            <div class="text-primary fw-bold text-xs mb-1"><span style="color: rgb(248,3,137);font-size: 15px;">IP Address</span></div>
+                                            <div class="text-dark fw-bold h4 mb-0"><span style="color: rgb(255,255,255);">192.168.4.56</span></div>
+                                        </div>
+                                        <div class="col-auto" style="margin-right: 6px;">
+											<span class="fa-stack fa-2x">
+											  <i class="fas fa-square fa-stack-1x" style="color:rgba(248,3,137,0.2); font-size: 55px;"></i>
+											  <i class="fas fa-wifi fa-stack-1x" style="color:rgba(248,3,137,1); font-size: 20px;"></i>
+											</span>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-md-6 col-xl-3 mb-2">
+                            <div class="card py-2 no-border mb-4">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col me-1" style="margin-left: 13px;">
+                                            <div class="text-primary fw-bold text-xs mb-1"><span style="color: rgb(248,3,137);font-size: 15px;">Business Unit</span></div>
+                                            <div class="text-dark fw-bold h4 mb-0"><span style="color: rgb(255,255,255);">WSD</span></div>
+                                        </div>
+                                        <div class="col-auto" style="margin-right: 6px;">
+											<span class="fa-stack fa-2x">
+											  <i class="fas fa-square fa-stack-1x" style="color:rgba(248,3,137,0.2); font-size: 55px;"></i>
+											  <i class="far fa-id-card fa-stack-1x" style="color:rgba(248,3,137,1); font-size: 21px;"></i>
+											</span>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 col-xl-12">
+							<div class="card no-border mb-3" style="border: none;">
+								<div class="card-body">
+									<div class="row" style="margin-left: 7px; margin-top: 7px;">
+										<h1 style="color: rgb(255,255,255);font-size: 20px;font-family: Alata, sans-serif;font-weight: bold;">Status Details</h1>
+									</div>
+									<div class="row mb-2" style="margin-left: 7px; margin-top: 0px;">
+										<h1 style="color: rgb(151,164,183);font-size: 15px;font-family: Abel, sans-serif;">in tabular format</h1>
+									</div>
+									<div class="row mb-1" style="margin-left: 0px; margin-right: 0px;">
+										<button onclick="location.href = 'http://10.21.11.16:1882/temphistoryreport?machine={{req.query.machine}}&ip={{req.query.ip}}';" class="btn" type="button" id="linkButton" style="background-color: white; font-size: 14px; width: 148px; margin-left: 12px; color: #152655; font-weight:bold;">Report</button>
+										<div id="toolbar" class="mb-2">
+											<select class="form-control" style="font-size: 14px; background-color: transparent; cursor: pointer;">
+												<option disabled>Please select one ...</option>
+												<option value="">Export Basic</option>
+												<option value="all">Export All</option>
+												<option value="selected">Export Selected</option>
+											</select>
+										</div> 
+										<table id="temp_hist"
+											data-toggle="table"               
+											data-search="true"
+											data-show-export="true"
+											data-pagination="true"
+											data-show-print="true"
+											data-click-to-select="true"
+											data-toolbar="#toolbar"
+											data-page-size=5
+											data-url="http://10.21.11.16:1882/oveninfo/temphistory?machine={{req.query.machine}}&ip={{req.query.ip}}">
+											<thead>
+											  <tr style="font-size: 11px; font-weight: bold;">
+												<th data-field="CREATED_ON">CREATED DATE</th>
+												<th data-field="MACHINE_CODE">MACHINE ID</th>
+												<th data-field="MACHINE_STATE">MACHINE STATE</th>
+												<th data-field="DEVICE">DEVICE</th>
+												<th data-field="LOTID">LOT ID</th>
+												<th data-field="QTY">QTY</th>
+												<th data-field="ERROR_CODE">ERROR CODE</th>
+												<th data-field="ERROR_DESCRIPTION">ERROR DESCRIPTION</th>
+												<th data-field="PARAM1">CURRENT TEMP</th>
+												<th data-field="PARAM2">CURRENT HUMIDITY</th>
+												<th data-field="PARAM3">SET TEMP</th>
+												<th data-field="PARAM4">SET HUMIDITY</th>
+												<th data-field="PARAM5">SET HOURS</th>
+												<th data-field="PARAM6">CURRENT PRESSURE</th>
+												<th data-field="PARAM7">HOURS OPERATED</th>
+												<th data-field="PARAM8">STATUS MSG</th>
+												<th data-field="CORETYPE">CORE TYPE</th>
+												<th data-field="TEST_S1">YIELD TEST SITE1</th>
+												<th data-field="TEST_S2">YIELD TEST SITE2</th>
+											  </tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+					<div class="row">
+                        <!-- <div class="col-md-6 col-xl-6">
+                            <div class="card no-border mb-4" style="border: none;">
+                                <div class="card-body">
+									<div class="row" style="margin-left: 7px; margin-top: 7px;">
+										<h1 style="color: rgb(255,255,255);font-size: 20px;font-family: Alata, sans-serif;font-weight: bold;">Alarm Counter</h1>
+									</div>
+									<div class="row mb-4" style="margin-left: 7px; margin-top: 0px;">
+										<h1 style="color: rgb(151,164,183);font-size: 15px;font-family: Abel, sans-serif;">for PCT#03</h1>
+									</div>
+									<div class="row">
+										<div class="col-md-6 col-xl-6" style="margin-top: 12px;">
+											<div class="row mt-0 mb-2">
+												<div class="col-md-2">
+													<span class="fa-stack fa-2x">
+													  <i class="fas fa-square fa-stack-1x" style="color:rgba(248,3,137,0.2); font-size:50px;"></i>
+													  <i class="fas fa-exclamation-triangle fa-stack-1x" style="color:rgba(248,3,137,1); font-size: 15px;"></i>
+													</span>
+												</div>
+												<div class="col-md-10" style="margin-top: 7px;">
+													<div class="fw-bold"><span style="font-size: 16px; color: white; margin-left: 16px;">Total No. of Errors Occured</span></div>
+													<div class=""><span style="font-size: 14px; margin-left: 16px;">Updated on 27/03/22, at 12:30:11</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-bold" style="color: red; font-size: 14px;">+1</span></div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12 col-xl-12" style="text-align: center; background-color: #090d24; border-radius: 20px; padding-top: 8px; margin-left: 30px; margin-right: 50px;">
+													<div class="row">
+														<h1 style="color: #01ffff;font-size: 60px;font-family: Abel, sans-serif; letter-spacing: 1px;-webkit-filter: drop-shadow(0px 0px 3px #01ffff); font-weight: bold;">801</h1>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 col-xl-6" style="display: flex;justify-content: center;">
+											<img src="siren.gif" style="transform: scaleY(-1); width: 280px;">
+										</div>
+									</div>
+								</div>
+                            </div>
+                        </div> -->
+						<div class="col-md-12 col-xl-12">
+                            <div class="card no-border mb-4" style="border: none;">
+                                <div class="card-body">
+									<div class="row" style="margin-left: 7px; margin-top: 7px;">
+										<h1 style="color: rgb(255,255,255);font-size: 20px;font-family: Alata, sans-serif;font-weight: bold;">Machine State</h1>
+									</div>
+									<div class="row mb-0" style="margin-left: 7px; margin-top: 0px;">
+										<h1 style="color: rgb(151,164,183);font-size: 15px;font-family: Abel, sans-serif;">for PCT#03</h1>
+									</div>
+									<div class="row mb-3">
+										<canvas id="pie-chart" width="100px" height="30px"></canvas>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+					<!-- <div class="row">
+						<div class="col-md-12 col-xl-12">
+							<div class="card no-border mb-3" style="border: none;">
+								<div class="card-body">
+									<div class="row" style="margin-left: 7px; margin-top: 7px;">
+										<h1 style="color: rgb(255,255,255);font-size: 20px;font-family: Alata, sans-serif;font-weight: bold;">Parameter Change</h1>
+									</div>
+									<div class="row mb-2" style="margin-left: 7px; margin-top: 0px;">
+										<h1 style="color: rgb(151,164,183);font-size: 15px;font-family: Abel, sans-serif;">in tabular format</h1>
+									</div>
+									<div class="row mb-1" style="margin-left: 0px; margin-right: 0px;">
+										<button onclick="location.href = 'http://10.21.11.16:1882/temphistoryreport?machine={{req.query.machine}}&ip={{req.query.ip}}';" class="btn" type="button" id="linkButton" style="background-color: white; font-size: 14px; width: 148px; margin-left: 12px; color: #152655; font-weight:bold;">Report</button>
+										<div id="toolbar3" class="mb-2">
+											<select class="form-control" style="font-size: 14px; background-color: transparent; cursor: pointer;">
+												<option disabled>Please select one ...</option>
+												<option value="">Export Basic</option>
+												<option value="all">Export All</option>
+												<option value="selected">Export Selected</option>
+											</select>
+										</div> 
+										<table id="yield_info"
+											data-toggle="table"               
+											data-search="true"
+											data-show-export="true"
+											data-pagination="true"
+											data-show-print="true"
+											data-click-to-select="true"
+											data-toolbar="#toolbar3"
+											data-page-size=5
+											data-url="http://10.21.11.16:1882/oveninfo/temphistory?machine={{req.query.machine}}&ip={{req.query.ip}}">
+											<thead>
+											  <tr style="font-size: 11px; font-weight: bold;">
+												<th data-field="MACHINE_CODE">MACHINE CODE</th>
+												<th data-field="MACHINE_STATE">TEST HEAD</th>
+												<th data-field="QTY">QTY</th>
+												<th data-field="QTY">YIELD</th>
+												<th data-field="QTY">TEST SITE</th>
+												<th data-field="QTY">CREATED DATE</th>
+											  </tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div> -->
+                    <!-- </div> -->
+				</div>
+			</div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+	<script src="js/jquery-3.3.1.js"></script>  
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/chart.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>
